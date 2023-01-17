@@ -7,10 +7,16 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "main", "data-turbo-track": "reload" %>
     <%= javascript_pack_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= favicon_link_tag asset_path('icons8-twitter-48.png') %>
   </head>
 
   <body>
+
+    <%= render 'shared/navbar' if user_signed_in? %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
