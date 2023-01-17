@@ -223,6 +223,8 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
+    nokogiri (1.14.0-x86_64-linux)
+      racc (~> 1.4)
     pg (1.4.5)
     popper_js (2.11.6)
     puma (5.6.5)
@@ -356,6 +358,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   activeadmin
