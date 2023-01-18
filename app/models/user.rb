@@ -4,5 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :twits
+  has_many :tweets, dependent: :destroy
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
 end

@@ -1,20 +1,20 @@
-import React, {useEffect, useState} from "react";
-import {useGetTwitsQuery} from "../../api/apiTwits";
+import React, {useState} from "react";
+import {useGetTweetsQuery} from "../../api/apiTweets";
 import Spinner from "../common/Spinner";
-import CreateTwitForm from "./CreateTwitForm";
-import TwitItem from "./TwitItem";
+import CreateTweetForm from "./CreateTweetForm";
+import TweetItem from "./TweetItem";
 
-const Twits = () => {
-  const [twit, setTwit] = useState({})
+const Tweets = () => {
+  const [tweet, setTweet] = useState({})
   const {
-    data: twits,
+    data: tweets,
     isLoading,
     isSuccess,
     isError,
     error,
-  } = useGetTwitsQuery();
-  const onChangeTwit = (e) => {
-    setTwit(Object.assign({}, twit, {[e.target.name]: e.target.value}))
+  } = useGetTweetsQuery();
+  const onChangeTweet = (e) => {
+    setTweet(Object.assign({}, tweet, {[e.target.name]: e.target.value}))
   }
 
   if (isLoading) {
@@ -25,8 +25,8 @@ const Twits = () => {
     return <div>{error.status}</div>;
   }
 
-  const twitItem = twits.data.map((twit) => {
-    return <TwitItem key={twit.id} twit={twit.attributes} />
+  const tweetItem = tweets.data.map((tweet) => {
+    return <TweetItem key={tweet.id} tweet={tweet.attributes} />
   })
 
   return isSuccess && <section className="home-page">
@@ -35,12 +35,12 @@ const Twits = () => {
         <div className="col-md-12 col-xl-10 h-100">
           <div className="card h-100">
             <div className="card-header p-3">
-              <CreateTwitForm twit={twit} setTwit={setTwit} onChangeTwit={onChangeTwit} />
+              <CreateTweetForm tweet={tweet} setTweet={setTweet} onChangeTweet={onChangeTweet} />
             </div>
             <div className="card-body table-scroll">
               <table className="table mb-0">
                 <tbody>
-                  {twitItem}
+                  {tweetItem}
                 </tbody>
               </table>
             </div>
@@ -51,4 +51,4 @@ const Twits = () => {
   </section>
 }
 
-export default Twits
+export default Tweets
