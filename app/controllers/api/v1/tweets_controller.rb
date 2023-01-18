@@ -5,16 +5,11 @@ class Api::V1::TweetsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    if user_signed_in?
-      @tweets = Tweet.all
-      respond_to do |format|
-        format.json do
-          render json: TweetSerializer.new(@tweets).serialized_json
-        end
+    @tweets = Tweet.all.ordered
+    respond_to do |format|
+      format.json do
+        render json: TweetSerializer.new(@tweets, is_login).serializable_hash.merge(is_login)
       end
-
-    else
-      render json: {}, status: 401
     end
   end
 
@@ -59,5 +54,11 @@ class Api::V1::TweetsController < ApplicationController
 
   def set_current_user
     Tweet.current_user = current_user
+  end
+
+  def is_login
+    {
+      is_login: current_user.present?
+    }
   end
 end

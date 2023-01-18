@@ -22,6 +22,7 @@ const EditTweetModal = ({onChangeEditTweet, handleShowEdit, editTweet, showModal
           <Form.Control
             type="text"
             as="textarea"
+            maxLength={255}
             rows="5"
             name="content"
             placeholder="Enter tweet"

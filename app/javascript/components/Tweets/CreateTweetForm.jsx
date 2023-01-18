@@ -23,6 +23,7 @@ const CreateTweetForm = ({tweet, setTweet, onChangeTweet}) => {
           rows="3"
           name="content"
           onChange={onChangeTweet}
+          maxLength={255}
           value={tweet.content || ''}
           placeholder="What's happening?"
           autoFocus />

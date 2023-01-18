@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useGetTweetsQuery} from "../../api/apiTweets";
 import Spinner from "../common/Spinner";
 import CreateTweetForm from "./CreateTweetForm";
@@ -34,7 +34,7 @@ const Tweets = () => {
       <div className="row d-flex justify-content-center align-items-center h-100">
         <div className="col-md-12 col-xl-10 h-100">
           <div className="card h-100">
-            <div className="card-header p-3">
+            <div className="card-header p-3" hidden={!tweets.is_login}>
               <CreateTweetForm tweet={tweet} setTweet={setTweet} onChangeTweet={onChangeTweet} />
             </div>
             <div className="card-body table-scroll">
