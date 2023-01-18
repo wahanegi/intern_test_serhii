@@ -28,7 +28,6 @@ gem "omniauth-github"
 gem 'omniauth-azure-activedirectory-v2'
 gem 'faker'
 gem 'activeadmin'
-gem "turbo-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

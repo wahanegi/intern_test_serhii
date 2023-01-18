@@ -70,3 +70,9 @@ body {
     padding: 40px 15px 15px 15px;
   }
 }
+
+.table-scroll {
+  position: relative;
+  height: 400px;
+  overflow: auto
+}
