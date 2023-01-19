@@ -373,6 +373,7 @@ DEPENDENCIES
   font-awesome-sass
   jbuilder
   jquery-rails
+  kaminari
   omniauth
   omniauth-azure-activedirectory-v2
   omniauth-github

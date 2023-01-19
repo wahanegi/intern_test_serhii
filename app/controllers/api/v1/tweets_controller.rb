@@ -5,10 +5,10 @@ class Api::V1::TweetsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @tweets = Tweet.all.ordered
+    @tweets = Tweet.all.ordered.page(params[:page]).per(ENV['PER_PAGE'])
     respond_to do |format|
       format.json do
-        render json: TweetSerializer.new(@tweets, is_login).serializable_hash.merge(is_login)
+        render json: TweetSerializer.new(@tweets).serializable_hash.merge(additional_params)
       end
     end
   end
@@ -56,7 +56,7 @@ class Api::V1::TweetsController < ApplicationController
     Tweet.current_user = current_user
   end
 
-  def is_login
+  def additional_params
     {
       is_login: current_user.present?
     }

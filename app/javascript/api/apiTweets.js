@@ -7,9 +7,8 @@ export const apiTweets = createApi({
   tagTypes: ['Tweets'],
   endpoints: (builder) => ({
     getTweets: builder.query({
-      query: () => 'tweets.json',
+      query: (page = 1) => `tweets?page=${page}`,
       providesTags: ['Tweets'],
-      // headers: { 'Content-Type': 'multipart/form-data' }
     }),
     addTweet: builder.mutation({
       query: (tweet) => ({
@@ -19,7 +18,7 @@ export const apiTweets = createApi({
         body: tweet,
         headers: { 'X-CSRF-Token': csrfToken },
       }),
-      invalidatesTags: ['Tweets'],
+      invalidatesTags:['Tweets'],
     }),
     updateTweet: builder.mutation({
       query: (tweet) => ({
@@ -28,7 +27,7 @@ export const apiTweets = createApi({
         body: tweet,
         headers: { 'X-CSRF-Token': csrfToken },
       }),
-      invalidatesTags: ['Tweets'],
+      invalidatesTags:['Tweets'],
     }),
     removeTweet: builder.mutation({
       query: (id) => ({
@@ -37,7 +36,7 @@ export const apiTweets = createApi({
         body: id,
         headers: { 'X-CSRF-Token': csrfToken },
       }),
-      invalidatesTags: ['Tweets'],
+      invalidatesTags:['Tweets'],
     }),
   })
 })

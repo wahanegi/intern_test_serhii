@@ -32,25 +32,6 @@ const TweetItem = ({tweet}) => {
     </div>
   }
 
-  const DropDown = () => {
-    return <div className="dropdown">
-      <button
-        className="btn btn-primary dropdown-toggle hidden-arrow"
-        type="button"
-        id="dropdownMenuButton1"
-        data-mdb-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <i className="fas fa-ellipsis-v fa-lg"></i>
-      </button>
-      <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a className="dropdown-item" href="#"> <i className="fas fa-user-alt pe-2"></i>My Profile</a></li>
-        <li><a className="dropdown-item" href="#"> <i className="fas fa-cog pe-2"></i>Settings</a></li>
-        <li><a className="dropdown-item" href="#"> <i className="fas fa-door-open pe-2"></i>Logout</a></li>
-      </ul>
-    </div>
-  }
-
   return <tr className="fw-normal">
     <td className="align-middle">
       <div className="card w-100">
