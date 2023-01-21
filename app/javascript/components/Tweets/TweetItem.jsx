@@ -4,15 +4,14 @@ import {PencilSquare, Trash} from "react-bootstrap-icons";
 import {sweetAlertRemoveTweet} from "../helpers/helpers";
 import {useRemoveTweetMutation} from "../../api/apiTweets";
 import EditTweetModal from "../modals/EditTweetModal";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
+import userIcon from "../../../assets/images/icons8-test-account-48.png";
 
-const TweetItem = ({tweet}) => {
+const TweetItem = ({tweet, setHasNextPage, setPage}) => {
   const [editTweet, setEditTweet] = useState(tweet)
   const [showModal, setShowModal] = useState(false);
   const [removeTweet] = useRemoveTweetMutation()
   const removeTweetConfirm = () => {
-    sweetAlertRemoveTweet(tweet, removeTweet)
+    sweetAlertRemoveTweet(tweet, removeTweet, setHasNextPage, setPage)
   }
   const handleShowEdit = () => setShowModal(p => !p);
   const onChangeEditTweet = (e) => {
@@ -23,7 +22,7 @@ const TweetItem = ({tweet}) => {
   const AvatarBlock = () => {
     return <div className="row">
       <div className="col avatar mt-1">
-        <FontAwesomeIcon icon={faCircleUser} size="4x" />
+        <i className="me-2 text-dark"><img src={userIcon} alt={"icon"}/></i>
       </div>
       <div className="col">
         <p className='align-text-top'>{email}</p><br/>
@@ -56,6 +55,8 @@ const TweetItem = ({tweet}) => {
         onChangeEditTweet={onChangeEditTweet}
         showModal={showModal}
         handleShowEdit={handleShowEdit}
+        setHasNextPage={setHasNextPage}
+        setPage={setPage}
       />
 
     </td>

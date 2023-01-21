@@ -7,7 +7,22 @@ export const apiTweets = createApi({
   tagTypes: ['Tweets'],
   endpoints: (builder) => ({
     getTweets: builder.query({
-      query: (page = 1) => `tweets?page=${page}`,
+      query: ({page = 1}) => `tweets?page=${page}`,
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      // Merge incoming data to the cache entry for scrolling page
+      merge: (currentCache, newItems, opts) => {
+        if (opts.arg.hasNextPage) {
+          currentCache.data.push(...newItems.data);
+        } else {
+          return { data: newItems.data }
+        }
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ['Tweets'],
     }),
     addTweet: builder.mutation({
