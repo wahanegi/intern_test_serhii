@@ -4,12 +4,16 @@ import Spinner from "../common/Spinner";
 import CreateTweetForm from "./CreateTweetForm";
 import TweetItem from "./TweetItem";
 import { Waypoint } from 'react-waypoint';
+import consumer from "../../cable";
+import Notification from "./Notification";
 
 const Tweets = () => {
   const [tweet, setTweet] = useState({})
   const [page, setPage] = useState(1);
   const [isLogin, setIsLogin] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+
   const {
     data: tweets,
     isLoading,
@@ -18,10 +22,25 @@ const Tweets = () => {
     error,
   } = useGetTweetsQuery({page, hasNextPage});
 
+  const currentUserId = useMemo(() => tweets?.current_user_id, [isLoading]);
+
   useEffect(() => {
     if (isLoading) return
     isSuccess && setIsLogin(tweets.is_login)
   }, [isLoading])
+
+  useEffect(() => {
+    consumer.subscriptions.create({
+      channel: 'TweetsChannel'
+    }, {
+      connected: () => console.log('connected'),
+      disconnected: () => console.log('disconnected'),
+      received: user_id => {
+        if (isLoading) return
+        user_id && (user_id !== currentUserId) && setShowNotification(true)
+      }
+    })
+  }, [currentUserId])
 
   const onChangeTweet = (e) => {
     setTweet(Object.assign({}, tweet, {[e.target.name]: e.target.value}))
@@ -63,6 +82,7 @@ const Tweets = () => {
                 setPage={setPage}
               />
             </div>
+            <Notification hidden={!showNotification} setShowNotification={setShowNotification} />
             <div className="card-body table-scroll">
               <table className="table mb-0">
                 <tbody>

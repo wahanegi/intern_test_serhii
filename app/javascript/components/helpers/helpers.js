@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+export const LOCAL_URL = 'ws://localhost:3000/cable'
 export const csrfToken = document.querySelector('[name=csrf-token]').content
 
 export const sweetAlertRemoveTweet = (tweet, removeTweet, setHasNextPage, setPage) => {
