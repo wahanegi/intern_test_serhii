@@ -4,11 +4,17 @@ import {Button} from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import {useUpdateTweetMutation} from "../../api/apiTweets";
 
-const EditTweetModal = ({onChangeEditTweet, handleShowEdit, editTweet, showModal }) => {
+const EditTweetModal = ({
+                          onChangeEditTweet, handleShowEdit, editTweet, showModal,
+                          setHasNextPage, setPage
+                        }) => {
   const [updateTweet] = useUpdateTweetMutation()
 
   const onClickSave = () => {
-    updateTweet(editTweet).then(handleShowEdit())
+    updateTweet(editTweet)
+      .then(handleShowEdit())
+      .then(setHasNextPage(false))
+      .then(setPage(1))
   }
 
   return <Modal show={showModal} onHide={handleShowEdit} animation={false}>

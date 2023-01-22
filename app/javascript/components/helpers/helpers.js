@@ -3,7 +3,7 @@ import withReactContent from 'sweetalert2-react-content'
 
 export const csrfToken = document.querySelector('[name=csrf-token]').content
 
-export const sweetAlertRemoveTweet = (tweet, action) => {
+export const sweetAlertRemoveTweet = (tweet, removeTweet, setHasNextPage, setPage) => {
   const MySwal = withReactContent(Swal)
   MySwal.fire({
     title: `Are you sure you want to remove tweet?`,
@@ -14,7 +14,9 @@ export const sweetAlertRemoveTweet = (tweet, action) => {
     confirmButtonText: 'Remove'
   }).then((result) => {
     if (result.isConfirmed) {
-      action(tweet.id)
+      removeTweet(tweet.id)
+      setHasNextPage(false)
+      setPage(1)
     }
   })
 }

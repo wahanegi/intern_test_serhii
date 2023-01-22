@@ -3,11 +3,13 @@ import Form from "react-bootstrap/Form";
 import {Button} from "react-bootstrap";
 import {useAddTweetMutation} from "../../api/apiTweets";
 
-const CreateTweetForm = ({tweet, setTweet, onChangeTweet}) => {
+const CreateTweetForm = ({tweet, setTweet, onChangeTweet, setPage, setHasNextPage}) => {
   const [addTweet, { isSuccess }] = useAddTweetMutation()
 
   const onClickSave = () => {
     addTweet(tweet)
+      .then(setPage(1))
+      .then(setHasNextPage(false))
   }
   useEffect(() => {
     isSuccess && setTweet('')
