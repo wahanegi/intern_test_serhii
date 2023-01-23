@@ -29,6 +29,7 @@ gem 'omniauth-azure-activedirectory-v2'
 gem 'faker'
 gem 'activeadmin'
 gem 'kaminari'
+gem 'rack-cors'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

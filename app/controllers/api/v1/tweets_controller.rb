@@ -18,6 +18,7 @@ class Api::V1::TweetsController < ApplicationController
 
     if @tweet.save
       render json: TweetSerializer.new(@tweet).serialized_json
+      ActionCable.server.broadcast('tweets_channel', @tweet.user_id)
     else
       render json: {error: @tweet.errors }, status: 422
     end
@@ -58,7 +59,8 @@ class Api::V1::TweetsController < ApplicationController
 
   def additional_params
     {
-      is_login: current_user.present?
+      is_login: current_user.present?,
+      current_user_id: current_user.id
     }
   end
 end

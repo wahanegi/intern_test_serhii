@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :tweets, param: :id
     end
   end
+  mount ActionCable.server => '/cable'
   get '/', to: 'pages#app'
+
   root "pages#home"
 end
