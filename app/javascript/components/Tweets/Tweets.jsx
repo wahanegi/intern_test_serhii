@@ -4,8 +4,8 @@ import Spinner from "../common/Spinner";
 import CreateTweetForm from "./CreateTweetForm";
 import TweetItem from "./TweetItem";
 import { Waypoint } from 'react-waypoint';
-import consumer from "../../cable";
 import Notification from "./Notification";
+import consumer from "../../channels/consumer";
 
 const Tweets = () => {
   const [tweet, setTweet] = useState({})
